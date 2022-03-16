@@ -212,7 +212,6 @@ main{
 main>.box{
     grid-auto-flow: column;
     border: 1px solid #E8E8E8;
-    background-color: lightblue;
     height: 242px;
     width: 100%;
     margin: 0px 0px;
@@ -237,7 +236,7 @@ main>.box{
     text-align: left;
     color: #757575;
     font-size: 16px;
-    line-height: 13px;
+    line-height: 15px;
     font-style: normal;
     font-weight: bold;
     width: 270px;
@@ -245,18 +244,28 @@ main>.box{
     box-sizing: border-box;
     padding: 11px 10px 7px 10px;
 }
+@media screen and (max-width:1200px){
+    .s-title{
+        width: auto;
+    }
+}
+@media screen and (max-width:600px){
+    .s-title{
+        width: auto;
+    }
+}
 #info{
     display: flex;
     justify-content: space-between;
 }
 @media screen and (max-width:1200px){
-    main>#info{
+    #info{
         display: flex;
         justify-content: space-between;
     }
 }
 @media screen and (max-width:600px){
-    main>#info{
+    #info{
         display: flex;
         justify-content: space-between;
     }
@@ -288,16 +297,6 @@ main>.box{
     height: 40px;
     box-sizing: border-box;
     padding: 8px 10px 12px 0px;
-}
-@media screen and (max-width:1200px){
-    main>.box{
-        width:100%;
-    }
-}
-@media screen and (max-width:600px){
-    main>.box{
-        width:100%;
-    }
 }
 
 .img-box{
