@@ -1,4 +1,3 @@
-from flask import Response
 from mysql.connector.pooling import MySQLConnectionPool
 dbconfig={
 	'host':'localhost',
@@ -13,7 +12,9 @@ pool=MySQLConnectionPool(
 )
 
 from flask import *
+from flask_cors import CORS
 app=Flask(__name__)
+CORS(app)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 
@@ -151,3 +152,4 @@ def api_attraction_id(path):
 		return Response("{'error':True, 'message':'500 錯誤訊息'}", status=500, mimetype='application/json')
 
 app.run(host='0.0.0.0',port=3000)
+# app.run(debug=True,port=3000)
