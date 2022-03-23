@@ -4,7 +4,7 @@ let src="/api/attractions?page=0";
 fetch(src).then(function(response){
     return response.json();
 }).then(function(result){
-    console.log("index 打印資料", result);
+    // console.log("index 打印資料", result);
     output=result;
     let num=output.data.length;
     let img_urls=[];
@@ -15,6 +15,7 @@ fetch(src).then(function(response){
     let names=[];
     let mrts=[];
     let categories=[];
+    let ids=[];
     for(let i=0;i<num;i++){
         let name=output.data[i].name;
         names.push(name);
@@ -22,9 +23,13 @@ fetch(src).then(function(response){
         mrts.push(mrt);
         let category=output.data[i].category;
         categories.push(category);
+        let id=output.data[i].id;
+        ids.push(id);
     }
 
-    for(i=1;i<=num;i++){
+    for(let i=1;i<=num;i++){
+        let spot_link=document.createElement("a");
+        spot_link.setAttribute("href","/attraction/"+ids[i-1].toString());
         let new_box=document.createElement("div");
         new_box.setAttribute("class","box");
         let inbox1=document.createElement("div");
@@ -45,9 +50,12 @@ fetch(src).then(function(response){
         let main=document.getElementById("main");
         main.appendChild(new_box);
         new_box.appendChild(inbox1);
-        inbox1.appendChild(image);
+        inbox1.appendChild(spot_link);
+        spot_link.appendChild(image);
         new_box.appendChild(inbox2);
+        spot_link.appendChild(inbox2);
         new_box.appendChild(inbox3);
+        spot_link.appendChild(inbox3);
         inbox3.appendChild(inbox4);
         inbox3.appendChild(inbox5);
     }
@@ -68,7 +76,7 @@ fetch(src).then(function(response){
                 fetch(link).then(function(response){
                     return response.json();
                 }).then(function(result){
-                    console.log("index 打印新資料", result);
+                    // console.log("index 打印新資料", result);
                     output=result;
                     let num=output.data.length;
                     let img_urls=[];
@@ -79,6 +87,7 @@ fetch(src).then(function(response){
                     let names=[];
                     let mrts=[];
                     let categories=[];
+                    let ids=[];
                     for(let i=0;i<num;i++){
                         let name=output.data[i].name;
                         names.push(name);
@@ -86,9 +95,13 @@ fetch(src).then(function(response){
                         mrts.push(mrt);
                         let category=output.data[i].category;
                         categories.push(category);
+                        let id=output.data[i].id;
+                        ids.push(id);
                     }
 
-                    for(i=1;i<=num;i++){
+                    for(let i=1;i<=num;i++){
+                        let spot_link=document.createElement("a");
+                        spot_link.setAttribute("href","/attraction/"+ids[i-1].toString());
                         let new_box=document.createElement("div");
                         new_box.setAttribute("class","box");
                         let inbox1=document.createElement("div");
@@ -109,9 +122,12 @@ fetch(src).then(function(response){
                         let main=document.getElementById("main");
                         main.appendChild(new_box);
                         new_box.appendChild(inbox1);
-                        inbox1.appendChild(image);
+                        inbox1.appendChild(spot_link);
+                        spot_link.appendChild(image);
                         new_box.appendChild(inbox2);
+                        spot_link.appendChild(inbox2);
                         new_box.appendChild(inbox3);
+                        spot_link.appendChild(inbox3);
                         inbox3.appendChild(inbox4);
                         inbox3.appendChild(inbox5);
                     }
@@ -141,7 +157,7 @@ function search(){
             let main=document.getElementById("main");
             main.innerHTML="";
             output=result;
-            console.log("search 打印資料", output);
+            // console.log("search 打印資料", output);
             let num=output.data.length;
             let img_urls=[];
             for(let i=0;i<num;i++){
@@ -151,6 +167,7 @@ function search(){
             let names=[];
             let mrts=[];
             let categories=[];
+            let ids=[];
             for(let i=0;i<num;i++){
                 let name=output.data[i].name;
                 names.push(name);
@@ -158,9 +175,13 @@ function search(){
                 mrts.push(mrt);
                 let category=output.data[i].category;
                 categories.push(category);
+                let id=output.data[i].id;
+                ids.push(id);
             }
 
-            for(i=1;i<=num;i++){
+            for(let i=1;i<=num;i++){
+                let spot_link=document.createElement("a");
+                spot_link.setAttribute("href","/attraction/"+ids[i-1].toString());
                 let new_box=document.createElement("div");
                 new_box.setAttribute("class","box");
                 let inbox1=document.createElement("div");
@@ -181,9 +202,12 @@ function search(){
                 let main=document.getElementById("main");
                 main.appendChild(new_box);
                 new_box.appendChild(inbox1);
-                inbox1.appendChild(image);
+                inbox1.appendChild(spot_link);
+                spot_link.appendChild(image);
                 new_box.appendChild(inbox2);
+                spot_link.appendChild(inbox2);
                 new_box.appendChild(inbox3);
+                spot_link.appendChild(inbox3);
                 inbox3.appendChild(inbox4);
                 inbox3.appendChild(inbox5);
             }
@@ -204,7 +228,7 @@ function search(){
                         fetch(link).then(function(response){
                             return response.json();
                         }).then(function(result){
-                            console.log("search 打印新資料", result);
+                            // console.log("search 打印新資料", result);
                             output=result;
                             let num=output.data.length;
                             let img_urls=[];
@@ -215,6 +239,7 @@ function search(){
                             let names=[];
                             let mrts=[];
                             let categories=[];
+                            let ids=[];
                             for(let i=0;i<num;i++){
                                 let name=output.data[i].name;
                                 names.push(name);
@@ -222,9 +247,13 @@ function search(){
                                 mrts.push(mrt);
                                 let category=output.data[i].category;
                                 categories.push(category);
+                                let id=output.data[i].id;
+                                ids.push(id);
                             }
         
-                            for(i=1;i<=num;i++){
+                            for(let i=1;i<=num;i++){
+                                let spot_link=document.createElement("a");
+                                spot_link.setAttribute("href","/attraction/"+ids[i-1].toString());
                                 let new_box=document.createElement("div");
                                 new_box.setAttribute("class","box");
                                 let inbox1=document.createElement("div");
@@ -245,9 +274,12 @@ function search(){
                                 let main=document.getElementById("main");
                                 main.appendChild(new_box);
                                 new_box.appendChild(inbox1);
-                                inbox1.appendChild(image);
+                                inbox1.appendChild(spot_link);
+                                spot_link.appendChild(image);
                                 new_box.appendChild(inbox2);
+                                spot_link.appendChild(inbox2);
                                 new_box.appendChild(inbox3);
+                                spot_link.appendChild(inbox3);
                                 inbox3.appendChild(inbox4);
                                 inbox3.appendChild(inbox5);
                             }
