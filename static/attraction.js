@@ -6,7 +6,7 @@ let src="/api"+now_path;
 fetch(src).then(function(response){
     return response.json();
 }).then(function(result){
-    console.log("打印資料", result);
+    // console.log("打印景點資料", result);
     output=result;
     num=output.data.images.length
     let imgs=[];

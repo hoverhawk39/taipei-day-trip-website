@@ -1,0 +1,128 @@
+
+.cursor{
+    cursor: pointer;
+}
+
+.modal{
+    display: block;
+    position: fixed;
+    z-index: 5; 
+    padding-top: 80px;
+    margin: 0px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.layer-1{
+    width: 340px;
+    height: 10px;
+    margin: 0px auto;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 6px 6px 0px 0px;
+}
+
+.layer-2{
+    width: 340px;
+    height: 275px;
+    margin: 0px auto;
+    background: #ffffff;
+    border-radius: 0px 0px 6px 6px;
+}
+
+.layer-2r{
+    width: 340px;
+    height: 332px;
+    margin: 0px auto;
+    background: #ffffff;
+    border-radius: 0px 0px 6px 6px;
+}
+
+.member-box{
+    display: block;
+    padding: 15px;
+    position: relative;
+    /* justify-content: center; */
+}
+
+.header{
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    color: #666666;
+    /* flex: auto; */
+    /* justify-content: center; */
+}
+
+.close-icon{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    z-index: 6;
+}
+#icon{
+    right: 17px;
+    top: 17px;
+}
+
+
+.form{
+    width: 310px;
+    height: 47px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    color: #666666;
+    margin: 0px auto;
+    border: 1px solid #CCCCCC;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 0px 0px 10px 0px;
+}
+
+.enter-btn{
+    width: 310px;
+    height: 47px;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: normal;
+    background-color: #448899;
+    color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 0px auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guide-words{
+    color: #666666;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 28px;
+}
+
+#error-msg-r{
+    display: none;
+    color: red;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 28px;
+}
+
+#error-msg{
+    display: none;
+    color: red;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 28px;
+}

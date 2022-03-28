@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>景點資訊</title>
     <link href="../static/attraction.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/memberForm.css" rel="stylesheet" type="text/css" media="all" />
 </head>
-<body>
+<body onload="userStatus();">
     <section id="fixed">
         <nav>
             <div class="site">台北一日遊</div>
             <div class="one"><a>預定行程</a></div>
-            <div class="two"><a>登入/註冊</a></div>
+            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
         </nav>
     </section>
     <div class="main" id="main">
@@ -65,5 +66,7 @@
         <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
     </div>
     <script src="../static/attraction.js"></script>
+    <script src="../static/memberForm.js"></script>
+    <script src="../static/memberCheck.js"></script>
 </body>
 </html>
