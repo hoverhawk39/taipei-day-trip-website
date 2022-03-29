@@ -126,3 +126,7 @@
     font-weight: normal;
     line-height: 28px;
 }
+
+button{
+    border-style: none;
+}

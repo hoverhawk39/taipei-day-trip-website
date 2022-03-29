@@ -9,9 +9,9 @@ function memberClick(){
                 <div class="header">登入會員帳號</div>
                 <img class="close-icon cursor" id="icon" src="../static/close.png" onclick="remove_pop();"></img>
             </div>
-            <input type="text" class="form" id="email" name="email" value="輸入電子信箱"></input>
-            <input type="text" class="form" id="password" name="password" value="輸入密碼"></input>
-            <div class="enter-btn cursor" onclick="userLogIn();">登入帳戶</div>
+            <input type="email" class="form" id="email" placeholder="輸入電子信箱">
+            <input type="password" class="form" id="password" placeholder="輸入密碼">
+            <button class="enter-btn cursor" onclick="userLogIn();">登入帳戶</button>
             <div id="error-msg"></div>
             <div class="guide-words cursor" onclick="register();">還沒有帳戶？點此註冊</div>
         </div>
@@ -34,10 +34,10 @@ function register(){
                 <div class="header">註冊會員帳號</div>
                 <img class="close-icon cursor" id="icon" src="../static/close.png" onclick="remove_pop();"></img>
             </div>
-            <input type="text" class="form" id="r-name" name="name" value="輸入姓名"></input>
-            <input type="text" class="form" id="email" name="email" value="輸入電子信箱"></input>
-            <input type="text" class="form" id="password" name="password" value="輸入密碼"></input>
-            <div class="enter-btn cursor" onclick="userSignUp();">註冊新帳戶</div>
+            <input type="text" class="form" id="r-name" placeholder="輸入姓名">
+            <input type="email" class="form" id="email" name="email" placeholder="輸入電子信箱">
+            <input type="password" class="form" id="password" name="password" placeholder="輸入密碼">
+            <button class="enter-btn cursor" onclick="userSignUp();">註冊新帳戶</button>
             <div id="error-msg-r"></div>
             <div class="guide-words cursor" onclick="login();">已經有帳戶了？點此登入</div>
         </div>
@@ -53,9 +53,9 @@ function login(){
                 <div class="header">登入會員帳號</div>
                 <img class="close-icon cursor" id="icon" src="../static/close.png" onclick="remove_pop();"></img>
             </div>
-            <input type="text" class="form" id="email" name="email" value="輸入電子信箱"></input>
-            <input type="text" class="form" id="password" name="password" value="輸入密碼"></input>
-            <div class="enter-btn cursor" onclick="userLogIn();">登入帳戶</div>
+            <input type="email" class="form" id="email" placeholder="輸入電子信箱">
+            <input type="password" class="form" id="password" placeholder="輸入密碼">
+            <button class="enter-btn cursor" onclick="userLogIn();">登入帳戶</button>
             <div id="error-msg"></div>
             <div class="guide-words cursor" onclick="register();">還沒有帳戶？點此註冊</div>
         </div>
