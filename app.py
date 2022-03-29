@@ -15,6 +15,7 @@ from flask import *
 from flask_cors import CORS
 app=Flask(__name__)
 CORS(app)
+app.secret_key='something secret'
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 
@@ -31,6 +32,101 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
+
+@app.route('/api/user', methods=['GET'])
+def getUser():
+	id,name,email="","",""
+	if('login-id' in session):
+		id=session['login-id']
+	if('login-name' in session):
+		name=session['login-name']
+	if('login-email' in session):
+		email=session['login-email']
+	value=(id,name,email)
+	db=pool.get_connection()
+	cursor=db.cursor(dictionary=True)
+	sql='SELECT id,name,email FROM member WHERE id=%s AND name=%s AND email=%s'
+	cursor.execute(sql,value)
+	output=cursor.fetchone()
+	cursor.close()
+	db.close()
+	if(output is not None):
+		data={
+			'id':output['id'],
+			'name':output['name'],
+			'email':output['email'],
+		}
+	else:
+		data=output
+	return jsonify({'data':data})
+
+@app.route('/api/user', methods=['POST'])
+def signUp():
+	try:
+		data=request.get_json(silent=True)
+		# print(data)
+		name=data['name']
+		email=data['email']
+		password=data['password']
+		value=(email,)
+		db=pool.get_connection()
+		cursor=db.cursor(dictionary=True)
+		sql='SELECT email FROM member WHERE email=%s'
+		cursor.execute(sql,value)
+		output=cursor.fetchone()
+		# print(output)
+		cursor.close()
+		db.close()
+		if(output is not None):
+			return Response('{"error":true, "message":"註冊失敗，重複的 Email 或其他原因"}', status=400, mimetype='application/json')
+		else:
+			value=(name,email,password)
+			db=pool.get_connection()
+			cursor=db.cursor(dictionary=True)
+			sql='INSERT INTO member (name, email, password) VALUES (%s, %s, %s)'
+			cursor.execute(sql,value)
+			db.commit()
+			cursor.close()
+			db.close()
+			return Response('{"ok":true}', status=200, mimetype='application/json')
+	except:
+		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
+
+@app.route('/api/user', methods=['PATCH'])
+def logIn():
+	try:
+		data=request.get_json(silent=True)
+		# print(data)
+		email=data['email']
+		password=data['password']
+		value=(email,password)
+		db=pool.get_connection()
+		cursor=db.cursor(dictionary=True)
+		sql='SELECT id,name,email,password FROM member WHERE email=%s AND password=%s'
+		cursor.execute(sql,value)
+		output=cursor.fetchone()
+		# print(output)
+		cursor.close()
+		db.close()
+		if(output is None):
+			return Response('{"error":true, "message":"登入失敗，帳號或密碼錯誤或其他原因"}', status=400, mimetype='application/json')
+		else:
+			session['login-id']=output['id']
+			session['login-name']=output['name']
+			session['login-email']=output['email']
+			# print(session['login-id'])
+			# print(session['login-name'])
+			# print(session['login-email'])
+			return Response('{"ok":true}', status=200, mimetype='application/json')
+	except:
+		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
+
+@app.route('/api/user', methods=['DELETE'])
+def logOut():
+	session.pop('login-id', None)
+	session.pop('login-name', None)
+	session.pop('login-email', None)
+	return Response('{"ok":true}', status=200, mimetype='application/json')
 
 @app.route('/api/attractions', methods=['GET'])
 def api():
@@ -98,10 +194,10 @@ def api():
 		return jsonify({'nextPage':num, 'data':dataFinal})
 
 	except ValueError:
-		return Response("{'error':True, 'message':'404 錯誤訊息'}", status=404, mimetype='application/json')
+		return Response('{"error":True, "message":"404 錯誤訊息"}', status=404, mimetype='application/json')
 
 	except:
-		return Response("{'error':True, 'message':'500 錯誤訊息'}", status=500, mimetype='application/json')
+		return Response('{"error":True, "message":"500 錯誤訊息"}', status=500, mimetype='application/json')
 
 @app.route('/api/attraction/<path>', methods=['GET'])
 def api_attraction_id(path):
@@ -141,15 +237,15 @@ def api_attraction_id(path):
 			'latitude':float(output['latitude']),
 			'longitude':float(output['longitude']),
 			'images':imgLinks[0]
-			}
+		}
 		dataFinal.append(data)
 		return jsonify({'data':dataFinal[0]})
 
 	except ValueError:
-		return Response("{'error':True, 'message':'400 錯誤訊息'}", status=400, mimetype='application/json')
+		return Response('{"error":True, "message":"400 錯誤訊息"}', status=400, mimetype='application/json')
 	
 	except:
-		return Response("{'error':True, 'message':'500 錯誤訊息'}", status=500, mimetype='application/json')
+		return Response('{"error":True, "message":"500 錯誤訊息"}', status=500, mimetype='application/json')
 
 app.run(host='0.0.0.0',port=3000)
 # app.run(debug=True,port=3000)
