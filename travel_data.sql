@@ -55,7 +55,7 @@ CREATE TABLE `member` (
   `email` varchar(80) NOT NULL,
   `password` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,8 +64,35 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'Jerry01','01email','01pwd'),(2,'Jerry02','02email','02pwd'),(3,'Jerry03','03email','03pwd'),(4,'Jerry04','04email','04pwd'),(5,'Jerry05','05email','05pwd'),(6,'Jerry06','06email','06pwd'),(7,'Jerry07','07email','07pwd'),(8,'Jerry08','08email','08pwd'),(9,'Jerry09','09email','09pwd');
+INSERT INTO `member` VALUES (1,'Jerry01','01email','01pwd'),(2,'Jerry02','02email','02pwd'),(3,'Jerry03','03email','03pwd'),(4,'Jerry04','04email','04pwd'),(5,'Jerry05','05email','05pwd'),(6,'Jerry06','06email','06pwd'),(7,'Jerry07','07email','07pwd'),(8,'Jerry08','08email','08pwd'),(9,'Jerry09','09email','09pwd'),(10,'Jerry10','10email','10pwd');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `booking`
+--
+
+DROP TABLE IF EXISTS `booking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `booking` (
+  `user_email` varchar(50) NOT NULL,
+  `attraction_id` int NOT NULL,
+  `date` varchar(20) NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `price` int NOT NULL,
+  PRIMARY KEY (`user_email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `booking`
+--
+
+LOCK TABLES `booking` WRITE;
+/*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES ('01email',5,'2022-04-09','afternoon',2500),('02email',9,'2022-04-29','afternoon',2500),('03email',9,'2022-04-26','afternoon',2500),('04email',28,'2022-07-01','morning',2000),('05email',32,'2022-03-03','afternoon',2500),('06email',11,'2022-09-09','morning',2000);
+/*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -119,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-28 22:53:14
+-- Dump completed on 2022-04-03 23:17:22

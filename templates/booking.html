@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>預訂行程</title>
+    <link href="../static/booking.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body onload="bookingStatus();">
+    <section id="fixed">
+        <nav>
+            <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
+            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+        </nav>
+    </section>
+    <div class="welcome">您好，<div id="user"></div>，待預訂的行程如下：</div>
+    <div class="empty" id="empty">目前沒有任何待預訂的行程</div>
+    <section class="content" id="content">
+    <div class="main" id="main">
+        <div class="main-img" id="main-img"></div>
+        <div class="main-right" id="main-right">
+            <div class="head">
+                <div class="title">台北一日遊：</div>
+                <div class="name" id="name"></div>
+            </div>
+            <div class="info">
+                <div class="bullet-point">日期：</div>
+                <div class="date" id="date"></div>
+            </div>
+            <div class="info">
+                <div class="bullet-point">時間：</div>
+                <div class="time" id="time"></div>
+            </div>
+            <div class="info">
+                <div class="bullet-point">費用：</div>
+                <div class="fee">新台幣</div>
+                <div class="price" id="price"></div>
+                <div class="dollar">元</div>
+            </div>
+            <div class="info" id="i-last">
+                <div class="bullet-point">地點：</div>
+                <div class="address" id="address"></div>
+            </div>
+        </div>
+        <div class="main-icon" id="main-icon">
+            <img class="delete cursor" src="../static/delete.png" onclick="bookingDelete();"></img>
+        </div>
+    </div>
+    <hr id="h1">
+    <div class="contact-info">
+        <div class="contact-title">您的聯絡資訊</div>
+        <div class="contact-point" id="c-num">聯絡姓名：<input type="text"></div>
+        <div class="contact-point" id="c-mail">聯絡信箱：<input type="text"></div>
+        <div class="contact-point" id="c-phone">手機號碼：<input type="text"></div>
+        <div class="reminder">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+    </div>
+    <hr id="h2">
+    <div class="payment-info">
+        <div class="payment-title">信用卡付款資訊</div>
+        <div class="payment-point" id="card-num">卡片號碼：<input type="password"></div>
+        <div class="payment-point" id="exp-time">過期時間：<input type="text" placeholder="MM / YY"></div>
+        <div class="payment-point" id="card-code">驗證密碼：<input type="text"></div>
+    </div>
+    <hr id="h3">
+    <div class="last-section">
+        <div class="total-price">
+            <div class="total">總價：新台幣</div>
+            <div class="total" id="total"></div>
+            <div class="total">元</div>
+        </div>
+        <button class="enter-btn cursor">確認訂購並付款</button>
+    </div>
+    </section>
+    <div class="end" id="end">
+        <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
+    </div>
+    <script src="../static/booking.js"></script>
+    <script src="../static/memberForm.js"></script>
+    <script src="../static/memberCheck.js"></script>
+</body>
+</html>

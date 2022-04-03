@@ -76,3 +76,7 @@ function higherPrice(){
     let money=document.getElementById("money");
     money.innerHTML="2500";
 }
+
+function toHomePage(){
+    window.location.href='/';
+}

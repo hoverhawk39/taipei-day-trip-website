@@ -1,0 +1,343 @@
+* {
+    box-sizing: border-box;
+    color: #666666;
+}
+body{
+    margin: 0px;
+    font-family: "Noto Sans TC";
+}
+
+section{
+    width: 1200px;
+    margin: 0px auto;
+}
+
+#fixed{
+    position: sticky;
+    position: -webkit-sticky;
+    top:0;
+    z-index: 5;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    width: 100%;
+}
+nav{
+    display: flex;
+    margin: 10px 0px;
+    padding: 0px 0px 0px 10px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+nav>.site{
+    color: #448899;
+    width: 150px;
+    height: 34px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 34px;
+    flex: auto;
+    justify-content: flex-start;
+}
+nav>.one{
+    width: 84px;
+    height: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 13px;
+    text-align: center;
+    flex: none;
+    justify-content: flex-end;
+    margin: 10px 0px;
+}
+nav>.two{
+    width: 91px;
+    height: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 13px;
+    text-align: center;
+    flex: none;
+    justify-content: flex-end;
+    margin: 10px 0px;
+}
+
+.welcome{
+    max-width: 1200px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    margin: 46px auto 35px;
+    padding: 0px 0px 0px 102px;
+}
+
+#user{
+    display: inline;
+}
+
+.empty{
+    max-width: 1200px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    margin: 0px auto 40px;
+    padding: 0px 0px 0px 102px;
+    display: block;
+}
+
+.content{
+    max-width: 1200px;
+    margin: 0px auto;
+    display: none;
+}
+
+.main{
+    display: flex;
+    max-width: 1200px;
+    margin: 0px auto;
+    justify-content: center;
+}
+
+.main-img{
+    width: 266px;
+    height: 200px;
+    box-sizing: border-box;
+    margin: 0px 25px 0px 100px;
+}
+
+img{
+    width: 266px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.main-right{
+    flex: auto;
+}
+
+.head{
+    margin: 0px 0px 30px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+}
+
+.title{
+    color: #448899;
+}
+
+.name{
+    color: #448899;
+}
+
+.info{
+    display: flex;
+    height: 14px;
+    margin: 0px 0px 20px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.bullet-point{
+    font-weight: bold;
+    margin: 0px 5px 0px 0px;
+}
+
+.price{
+    margin: 0px 5px;
+}
+
+.main-icon{
+    margin: 0px 120px 0px 0px;
+}
+
+.delete{
+    width: 30px;
+    height: 30px;
+}
+
+#h1{
+    display: block;
+    width: auto;
+    max-width: 1200px;
+    margin: 40px auto 44px;
+    border: 1px solid #e8e8e8;
+}
+
+.contact-info{
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0px 0px 0px 105px;
+    display: block;
+}
+
+.contact-title{
+    margin: 0px 0px 31px 0px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+
+}
+
+.contact-point{
+    margin: 0px 0px 29px 0px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+input{
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.reminder{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#h2{
+    display: block;
+    width: auto;
+    max-width: 1200px;
+    margin: 45px auto 44px;
+    border: 1px solid #e8e8e8;
+}
+
+.payment-info{
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0px 0px 0px 105px;
+    display: block;
+}
+
+.payment-title{
+    margin: 0px 0px 31px 0px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+
+}
+
+.payment-point{
+    margin: 0px 0px 29px 0px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+#card-code{
+    margin: 0px;
+}
+
+#h3{
+    display: block;
+    width: auto;
+    max-width: 1200px;
+    margin: 40px auto 43px;
+    border: 1px solid #e8e8e8;
+}
+
+.last-section{
+    max-width: 1200px;
+    margin: 0px auto;
+    display: block;
+}
+
+.total-price{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0px 120px 25px auto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#total{
+    margin: 0px 5px;
+}
+
+button{
+    border-style: none;
+    width: 173px;
+    height: 36px;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: normal;
+    background-color: #448899;
+    color: #ffffff;
+    border-radius: 5px;
+    margin: 0px 120px 62px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.end{
+    display: flex;
+    margin: 0px;
+    background-color: #757575;
+    /* height: 104px; */
+    height: 100vh;
+    justify-content: center;
+    /* align-items: center; */
+    padding-top: 45px;
+}
+
+#copyright{
+    color: #ffffff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 13px;
+}
+
+@media screen and (max-width:1200px){
+    .content{width: auto;}
+    .welcome{padding: 0px 0px 0px 20px;}
+    .empty{padding: 0px 0px 0px 20px;}
+    .main-img{margin: 0px 25px 0px 20px;}
+    .main-icon{margin: 0px 20px 0px 0px;}
+    .contact-info{padding: 0px 0px 0px 20px;}
+    .payment-info{padding: 0px 0px 0px 20px;}
+    .total-price{margin: 0px 20px 25px auto;}
+    button{margin: 0px 20px 62px auto;}
+    #h1{width: auto; margin: 40px 10px 44px 10px;}
+    #h2{width: auto; margin: 45px 10px 44px 10px;}
+    #h3{width: auto; margin: 40px 10px 43px 10px;}
+}
+
+@media screen and (max-width:750px){
+    .content{width: auto;}
+    .welcome{padding: 0px 0px 0px 10px;}
+    .empty{padding: 0px 0px 0px 10px;}
+    .main{display: block; margin: 0px;}
+    .main-img{width:100vw; margin: 0px;}
+    img{width:100vw; padding-left: 10px; padding-right: 10px;}
+    .head{margin:35px 10px 30px 10px;}
+    #i-last{margin: 0px 0px 5px;}
+    .bullet-point{margin: 0px 5px 20px 10px;}
+    .main-icon{margin: 0px 10px 0px 0px; text-align: right;}
+    .delete{padding: 0px;}
+    .contact-info{padding: 0px 0px 0px 10px;}
+    .payment-info{padding: 0px 0px 0px 10px;}
+    .total-price{margin: 0px 10px 25px auto;}
+    button{margin: 0px 10px 62px auto;}
+    #h1{width: auto; margin: 30px 10px 44px 10px;}
+    #h2{width: auto; margin: 40px 10px 44px 10px;}
+    #h3{width: auto; margin: 40px 10px 43px 10px;}
+}

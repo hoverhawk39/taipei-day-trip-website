@@ -199,7 +199,7 @@ div>span{
     box-sizing: border-box;
 }
 
-input[type='date']{
+input[type="date"]{
     width: 193px;
     height: 35px;
     background-color: #ffffff;
@@ -266,24 +266,21 @@ input[type="radio"]:checked{
     font-weight: 400;
     margin: 0px 5px 0px 0px;
 }
-.btn{
+button{
+    border-style: none;
+    border-radius: 5px;
     width: 154px;
     height: 36px;
-    background-color: #448899;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin: 0px 0px 41px;
-}
-.btn-word{
-    width: 114px;
-    height: 16px;
     color: #ffffff;
+    background-color: #448899;
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
     display: flex;
     align-items: center;
     text-align: center;
+    padding: 10px 20px;
+    margin: 0px 0px 41px;
 }
 hr{
     display: block;
