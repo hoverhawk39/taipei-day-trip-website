@@ -1,4 +1,12 @@
 from mysql.connector.pooling import MySQLConnectionPool
+from flask import *
+from flask_cors import CORS
+app=Flask(__name__)
+CORS(app)
+app.secret_key='something secret'
+app.config["JSON_AS_ASCII"]=False
+app.config["TEMPLATES_AUTO_RELOAD"]=True
+
 dbconfig={
 	'host':'localhost',
 	'user':'root',
@@ -10,14 +18,6 @@ pool=MySQLConnectionPool(
 	pool_size=30,
 	**dbconfig
 )
-
-from flask import *
-from flask_cors import CORS
-app=Flask(__name__)
-CORS(app)
-app.secret_key='something secret'
-app.config["JSON_AS_ASCII"]=False
-app.config["TEMPLATES_AUTO_RELOAD"]=True
 
 # Pages
 @app.route("/")
@@ -247,5 +247,105 @@ def api_attraction_id(path):
 	except:
 		return Response('{"error":True, "message":"500 錯誤訊息"}', status=500, mimetype='application/json')
 
-app.run(host='0.0.0.0',port=3000)
+@app.route('/api/booking', methods=['GET'])
+def getBooking():
+	# id,name,email="","",""
+	if('login-email' in session):
+		email=session['login-email']
+		value=(email,)
+		db=pool.get_connection()
+		cursor=db.cursor(dictionary=True)
+		sql='SELECT attraction_id,date,time,price FROM booking WHERE user_email=%s'
+		cursor.execute(sql,value)
+		output1=cursor.fetchone()
+		cursor.close()
+		db.close()
+		if(output1 is not None):
+			a_id=output1['attraction_id']
+			value=(a_id,)
+			db=pool.get_connection()
+			cursor=db.cursor(dictionary=True)
+			sql='''SELECT id,name,address,images 
+					FROM spot LEFT JOIN image
+					ON spot.id=image.spot_id
+					HAVING spot.id=%s
+					LIMIT 1'''
+			cursor.execute(sql,value)
+			output2=cursor.fetchone()
+			cursor.close()
+			db.close()
+
+			data={
+				'attraction':{
+				'id':output2['id'],
+				'name':output2['name'],
+				'address':output2['address'],
+				'image':output2['images']
+				},
+				'date':output1['date'],
+				'time':output1['time'],
+				'price':output1['price']
+			}
+		else:
+			data=None
+		return jsonify({'data':data})
+	else:
+		return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
+
+@app.route('/api/booking', methods=['POST'])
+def addBooking():
+	try:
+		# email=""
+		if('login-email' in session):
+			email=session['login-email']
+			data=request.get_json(silent=True)
+			print(data)
+			attractionId=int(data['attractionId'])
+			date=data['date']
+			time=data['time']
+			price=int(data['price'])
+			if(date==""):
+				return Response('{"error":true, "message":"建立失敗，輸入不正確或其他原因"}', status=400, mimetype='application/json')
+			else:
+				value1=(email,)
+				db=pool.get_connection()
+				cursor=db.cursor(dictionary=True)
+				sql='DELETE FROM booking WHERE user_email=%s'
+				cursor.execute(sql,value1)
+				db.commit()
+				cursor.close()
+				db.close()
+				value2=(email,attractionId,date,time,price)
+				db=pool.get_connection()
+				cursor=db.cursor(dictionary=True)
+				sql='INSERT INTO booking (user_email,attraction_id,date,time,price) VALUES (%s,%s,%s,%s,%s)'
+				cursor.execute(sql,value2)
+				db.commit()
+				cursor.close()
+				db.close()
+				return Response('{"ok":true}', status=200, mimetype='application/json')
+		else:
+			return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
+
+	except:
+		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
+
+@app.route('/api/booking', methods=['DELETE'])
+def dropBooking():
+	if('login-email' in session):
+		email=session['login-email']
+		value=(email,)
+		db=pool.get_connection()
+		cursor=db.cursor(dictionary=True)
+		sql='DELETE FROM booking WHERE user_email=%s'
+		cursor.execute(sql,value)
+		db.commit()
+		cursor.close()
+		db.close()
+		return Response('{"ok":true}', status=200, mimetype='application/json')
+	else:
+		return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
+
+if __name__=="__main__":
+	app.run(host='0.0.0.0',port=3000)
 # app.run(debug=True,port=3000)

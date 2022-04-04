@@ -10,8 +10,8 @@
 <body onload="userStatus();">
     <section id="fixed">
         <nav>
-            <div class="site">台北一日遊</div>
-            <div class="one"><a>預定行程</a></div>
+            <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
+            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
             <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
         </nav>
     </section>
@@ -19,8 +19,7 @@
         <div class="main-img" id="main-img">
             <img class="arrow-left cursor" id="left" src="../static/btn_leftArrow.png" onclick="showPhotos(-1);"></img>
             <img class="arrow-right cursor" id="right" src="../static/btn_rightArrow.png" onclick="showPhotos(1);"></img>
-            <div class="dots" id="dots">
-            </div>
+            <div class="dots" id="dots"></div>
         </div>
         <div class="main-right" id="main-right">
             <div class="name" id="name"></div>
@@ -33,13 +32,13 @@
                 <div class="head">訂購導覽行程</div>
                 <div class="slogan">以此景點為中心的一日行程，帶您探索城市角落故事</div>
                 <div class="date">
-                    <div class="d1">選擇日期：<input type="date"></input></div>
+                    <div class="d1">選擇日期：<input type="date" id="date"></div>
                 </div>
                 <div class="time">
                     <div class="t1">選擇時間：</div>
-                    <input type="radio" name="time" value="am" onclick="lowerPrice();" checked></input>
+                    <input type="radio" name="time" value="morning" onclick="lowerPrice();" checked>
                     <div class="t2">上半天</div>
-                    <input type="radio" name="time" value="pm" onclick="higherPrice();"></input>
+                    <input type="radio" name="time" value="afternoon" onclick="higherPrice();">
                     <div class="t2">下半天</div>
                 </div>
                 <div class="fee">
@@ -48,9 +47,7 @@
                     <div class="f2" id="money">2000</div>
                     <div class="f2">元</div>
                 </div>
-                <div class="btn">
-                    <div class="btn-word">開始預訂行程</div>
-                </div>
+                <button class="cursor" onclick="bookingPost();">開始預訂行程</button>
             </div>
         </div>
     </div>
@@ -68,5 +65,6 @@
     <script src="../static/attraction.js"></script>
     <script src="../static/memberForm.js"></script>
     <script src="../static/memberCheck.js"></script>
+    <script src="../static/booking.js"></script>
 </body>
 </html>
