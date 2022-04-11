@@ -1,3 +1,51 @@
+let cardNumber=document.getElementById('card_number');
+let expirationDate=document.getElementById('card_expiration_date');
+let cvv=document.getElementById('card_cvv');
+let confirmBtn=document.getElementById('confirm_btn');
+let contactName=document.getElementById('c-name');
+let contactEmail=document.getElementById('c-email');
+let contactPhone=document.getElementById('c-phone');
+
+TPDirect.setupSDK(11327,'app_whdEWBH8e8Lzy4N6BysVRRMILYORF6UxXbiOFsICkz0J9j1C0JUlCHv1tVJC','sandbox');
+let fields={
+    number:{
+        element: cardNumber,
+        placeholder: '**** **** **** ****',
+    },
+    expirationDate:{
+        element: expirationDate,
+        placeholder: 'MM / YY',
+    },
+    ccv:{
+        element: cvv,
+        placeholder: 'CVV',
+    }
+}
+
+TPDirect.card.setup({
+    fields: fields,
+    styles:{
+        'input':{
+        'font-size':'16px',
+        },
+        '.valid':{
+        'color':'green'
+        },
+        '.invalid':{
+        'color':'red'
+        },
+    }
+});
+
+TPDirect.card.onUpdate((update)=>{
+    if(update.canGetPrime){
+        confirmBtn.removeAttribute('disabled');
+    }
+    else{
+        confirmBtn.setAttribute('disabled',true);
+    }
+})
+
 function bookingStatus(){
     fetch("/api/user", {method:'GET'})
     .then(function(response){
@@ -34,6 +82,7 @@ function bookingPlan(){
     });
 }
 
+let bookingInfo;
 function bookingGet(){
     fetch("/api/booking", {method:'GET'})
     .then(function(response){
@@ -66,6 +115,7 @@ function bookingGet(){
             end.style.height="104px";
             end.style.paddingTop="0px";
             end.style.alignItems="center";
+            bookingInfo=info;
         }
     });
 }
@@ -131,6 +181,50 @@ function bookingDelete(){
         window.location.reload();
     });
 }
+
+function confirmPayment(){
+    const tappayStatus=TPDirect.card.getTappayFieldsStatus();
+    if(tappayStatus.canGetPrime===true){
+        TPDirect.card.getPrime((result)=>{
+            let paymentInfo={
+                prime: result.card.prime,
+                order:{
+                    price: bookingInfo.price,
+                    trip:{
+                        attraction:{
+                            id: bookingInfo.attraction.id,
+                            name: bookingInfo.attraction.name,
+                            address: bookingInfo.attraction.address,
+                            image: bookingInfo.attraction.image
+                        },
+                        date: bookingInfo.date,
+                        time: bookingInfo.time,
+                    },
+                    contact:{
+                        name: contactName.value,
+                        email: contactEmail.value,
+                        phone: contactPhone.value,
+                    }
+                }
+            };
+            console.log(paymentInfo);
+            let options={
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(paymentInfo),
+            };
+            fetch("/api/order", options)
+            .then(response=>response.json())
+            .then(result=>{
+                if(result.data.payment.status==0){
+                    window.location.href='/thankyou?number='+result.data.number;
+                }
+            })
+        })
+    }
+}
+
+confirmBtn.addEventListener('click', confirmPayment);
 
 function toHomePage(){
     window.location.href='/';

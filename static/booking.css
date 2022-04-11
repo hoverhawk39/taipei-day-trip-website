@@ -233,9 +233,20 @@ input{
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
-#card-code{
+.tpfield{
+    display: inline-flex;
+    width: 200px;
+    height: 38px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#card-cvv{
     margin: 0px;
 }
 
@@ -266,7 +277,7 @@ input{
     margin: 0px 5px;
 }
 
-button{
+.enter-btn{
     border-style: none;
     width: 173px;
     height: 36px;
@@ -280,7 +291,11 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
+    padding: 0px 20px;
+}
+.enter-btn:disabled{
+    background: #8f8f8f;
+    cursor: initial;
 }
 
 .cursor{
@@ -315,7 +330,7 @@ button{
     .contact-info{padding: 0px 0px 0px 20px;}
     .payment-info{padding: 0px 0px 0px 20px;}
     .total-price{margin: 0px 20px 25px auto;}
-    button{margin: 0px 20px 62px auto;}
+    .enter-btn{margin: 0px 20px 62px auto;}
     #h1{width: auto; margin: 40px 10px 44px 10px;}
     #h2{width: auto; margin: 45px 10px 44px 10px;}
     #h3{width: auto; margin: 40px 10px 43px 10px;}
@@ -336,7 +351,7 @@ button{
     .contact-info{padding: 0px 0px 0px 10px;}
     .payment-info{padding: 0px 0px 0px 10px;}
     .total-price{margin: 0px 10px 25px auto;}
-    button{margin: 0px 10px 62px auto;}
+    .enter-btn{margin: 0px 10px 62px auto;}
     #h1{width: auto; margin: 30px 10px 44px 10px;}
     #h2{width: auto; margin: 40px 10px 44px 10px;}
     #h3{width: auto; margin: 40px 10px 43px 10px;}

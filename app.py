@@ -1,6 +1,9 @@
 from mysql.connector.pooling import MySQLConnectionPool
 from flask import *
 from flask_cors import CORS
+from datetime import datetime
+import random
+import requests
 app=Flask(__name__)
 CORS(app)
 app.secret_key='something secret'
@@ -326,7 +329,6 @@ def addBooking():
 				return Response('{"ok":true}', status=200, mimetype='application/json')
 		else:
 			return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
-
 	except:
 		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
 
@@ -343,6 +345,158 @@ def dropBooking():
 		cursor.close()
 		db.close()
 		return Response('{"ok":true}', status=200, mimetype='application/json')
+	else:
+		return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
+
+@app.route('/api/order', methods=['POST'])
+def createOrder():
+	try:
+		if('login-email' in session):
+			email=session['login-email']
+			data=request.get_json(silent=True)
+			# print(data)
+			prime=data['prime']
+			attractionId=int(data['order']['trip']['attraction']['id'])
+			date=data['order']['trip']['date']
+			time=data['order']['trip']['time']
+			price=data['order']['price']
+			contactName=data['order']['contact']['name']
+			contactEmail=data['order']['contact']['email']
+			contactPhone=data['order']['contact']['phone']
+			if((not prime) or (not contactName) or (not contactEmail) or (not contactPhone)):
+				return Response('{"error":true, "message":"訂單建立失敗，輸入不正確或其他原因"}', status=400, mimetype='application/json')
+			else:
+				currentTime=datetime.now()
+				newCurrentTime=currentTime.strftime("%Y%m%d%H%M%S%f")
+				orderId=newCurrentTime+str(random.randint(111,999))
+				value=(email,orderId,prime,attractionId,date,time,price,contactName,contactEmail,contactPhone)
+				db=pool.get_connection()
+				cursor=db.cursor(dictionary=True)
+				sql='''INSERT INTO payment (u_mail,order_id,prime,attraction_id,date,time,price,contact_name,contact_email,contact_phone) 
+						VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+				cursor.execute(sql,value)
+				db.commit()
+				cursor.close()
+				db.close()
+
+				headers={
+					"Content-Type": "application/json",
+					"x-api-key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM"
+				}
+				payload={
+					"prime": prime,
+					"partner_key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM",
+					"merchant_id": "GlobalTesting_CTBC",
+					"details": "台北一日遊的預訂行程付款",
+					"amount": price,
+					"cardholder": {
+						"phone_number": contactPhone,
+						"name": contactName,
+						"email": contactEmail
+					}
+				}
+				response=requests.post('https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime', json=payload, headers=headers)
+				if(response.json()['status']!=0):
+					data={
+						'number': orderId,
+						'payment': {
+							'status': 1,
+							'message': '付款失敗'
+						}
+					}
+				else:
+					value1=(email,)
+					db=pool.get_connection()
+					cursor=db.cursor(dictionary=True)
+					sql='DELETE FROM booking WHERE user_email=%s'
+					cursor.execute(sql,value1)
+					db.commit()
+					cursor.close()
+					db.close()
+					value2=(orderId,)
+					db=pool.get_connection()
+					cursor=db.cursor(dictionary=True)
+					sql='''UPDATE payment 
+							SET status=0
+							WHERE order_id=%s'''
+					cursor.execute(sql,value2)
+					db.commit()
+					cursor.close()
+					db.close()
+					data={
+						'number': orderId,
+						'payment': {
+							'status': 0,
+							'message': '付款成功'
+						}
+					}
+				return jsonify({'data':data})
+		else:
+			return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
+	except Exception as e:
+		print(e)
+		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
+
+@app.route('/api/order/<orderid>', methods=['GET'])
+def get_order_id(orderid):
+	if('login-email' in session):
+		value=(orderid,)
+		db=pool.get_connection()
+		cursor=db.cursor(dictionary=True)
+		sql='SELECT attraction_id FROM payment WHERE order_id=%s'
+		cursor.execute(sql,value)
+		output=cursor.fetchone()
+		cursor.close()
+		db.close()
+		if(output is not None):
+			value1=(output['attraction_id'],)
+			db=pool.get_connection()
+			cursor=db.cursor(dictionary=True)
+			sql='''SELECT order_id,price,attraction_id,name,address,date,time,contact_name,contact_email,contact_phone,status
+					FROM travel.spot ts RIGHT JOIN travel.payment tp
+					ON ts.id=tp.attraction_id
+					HAVING tp.attraction_id=%s
+				'''
+			cursor.execute(sql,value1)
+			output1=cursor.fetchone()
+			cursor.close()
+			db.close()
+
+			db=pool.get_connection()
+			cursor=db.cursor(dictionary=True)
+			sql='''SELECT id,images 
+					FROM spot LEFT JOIN image
+					ON spot.id=image.spot_id
+					HAVING spot.id=%s
+					LIMIT 1'''
+			cursor.execute(sql,value1)
+			output2=cursor.fetchone()
+			cursor.close()
+			db.close()
+
+			data={
+				'number':output1['order_id'],
+				'price':output1['price'],
+				'trip':{
+					'attraction':{
+					'id':output1['attraction_id'],
+					'name':output1['name'],
+					'address':output1['address'],
+					'image':output2['images'],
+					},
+					'date':output1['date'],
+					'time':output1['time'],
+				},
+				'contact':{
+					'name':output1['contact_name'],
+					'email':output1['contact_email'],
+					'phone':output1['contact_phone']
+				},
+				'status':output1['status']
+			}
+		else:
+			data=None
+		return jsonify({'data':data})
 	else:
 		return Response('{"error":true, "message":"未登入系統，拒絕存取"}', status=403, mimetype='application/json')
 
