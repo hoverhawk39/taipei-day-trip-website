@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>付款完成</title>
+    <link href="../static/thankyou.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/memberForm.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body onload="userStatus();">
+    <section id="fixed">
+        <nav>
+            <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
+            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+        </nav>
+    </section>
+    <div class="default">行程預訂成功<br>您的訂單編號如下
+        <div id="order-id"></div>
+        <div class="wish">預祝您旅途愉快！</div>
+        <button class="cursor" onclick="toHomePage();">回首頁</button>
+    </div>
+    <div class="end" id="end">
+        <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
+    </div>
+    <script src="../static/thankyou.js"></script>
+    <script src="../static/booking.js"></script>
+    <script src="../static/memberForm.js"></script>
+    <script src="../static/memberCheck.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>預訂行程</title>
     <link href="../static/booking.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://js.tappaysdk.com/tpdirect/v5.8.0"></script>
 </head>
 <body onload="bookingStatus();">
     <section id="fixed">
@@ -51,17 +52,17 @@
     <hr id="h1">
     <div class="contact-info">
         <div class="contact-title">您的聯絡資訊</div>
-        <div class="contact-point" id="c-num">聯絡姓名：<input type="text"></div>
-        <div class="contact-point" id="c-mail">聯絡信箱：<input type="text"></div>
-        <div class="contact-point" id="c-phone">手機號碼：<input type="text"></div>
+        <div class="contact-point">聯絡姓名：<input type="text" id="c-name"></div>
+        <div class="contact-point">聯絡信箱：<input type="text" id="c-email"></div>
+        <div class="contact-point">手機號碼：<input type="text" id="c-phone"></div>
         <div class="reminder">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
     </div>
     <hr id="h2">
     <div class="payment-info">
         <div class="payment-title">信用卡付款資訊</div>
-        <div class="payment-point" id="card-num">卡片號碼：<input type="password"></div>
-        <div class="payment-point" id="exp-time">過期時間：<input type="text" placeholder="MM / YY"></div>
-        <div class="payment-point" id="card-code">驗證密碼：<input type="text"></div>
+        <div class="payment-point">卡片號碼：<div class="tpfield" id="card_number"></div></div>
+        <div class="payment-point">過期時間：<div class="tpfield" id="card_expiration_date"></div></div>
+        <div class="payment-point">驗證密碼：<div class="tpfield" id="card_cvv"></div></div>
     </div>
     <hr id="h3">
     <div class="last-section">
@@ -70,7 +71,7 @@
             <div class="total" id="total"></div>
             <div class="total">元</div>
         </div>
-        <button class="enter-btn cursor">確認訂購並付款</button>
+        <input type="button" class="enter-btn cursor" value="確認訂購並付款" id="confirm_btn" disabled>
     </div>
     </section>
     <div class="end" id="end">
