@@ -2,18 +2,22 @@ from mysql.connector.pooling import MySQLConnectionPool
 from flask import *
 from flask_cors import CORS
 from datetime import datetime
+from dotenv import load_dotenv
 import random
 import requests
-app=Flask(__name__)
+import re
+import os
+
+app=Flask(__name__, static_folder='static', static_url_path='/static/')
 CORS(app)
-app.secret_key='something secret'
+app.secret_key=os.urandom(8)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
-
+load_dotenv()
 dbconfig={
 	'host':'localhost',
 	'user':'root',
-	'password':'jason9987',
+	'password':os.getenv("DB_PWD"),
 	'database':'travel',
 }
 pool=MySQLConnectionPool(
@@ -71,27 +75,31 @@ def signUp():
 		name=data['name']
 		email=data['email']
 		password=data['password']
-		value=(email,)
-		db=pool.get_connection()
-		cursor=db.cursor(dictionary=True)
-		sql='SELECT email FROM member WHERE email=%s'
-		cursor.execute(sql,value)
-		output=cursor.fetchone()
-		# print(output)
-		cursor.close()
-		db.close()
-		if(output is not None):
-			return Response('{"error":true, "message":"註冊失敗，重複的 Email 或其他原因"}', status=400, mimetype='application/json')
-		else:
-			value=(name,email,password)
+		result=re.match("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$",email)
+		if (name and result and password):
+			value=(email,)
 			db=pool.get_connection()
 			cursor=db.cursor(dictionary=True)
-			sql='INSERT INTO member (name, email, password) VALUES (%s, %s, %s)'
+			sql='SELECT email FROM member WHERE email=%s'
 			cursor.execute(sql,value)
-			db.commit()
+			output=cursor.fetchone()
+			# print(output)
 			cursor.close()
 			db.close()
-			return Response('{"ok":true}', status=200, mimetype='application/json')
+			if(output is not None):
+				return Response('{"error":true, "message":"註冊失敗，重複的 Email 或其他原因"}', status=400, mimetype='application/json')
+			else:
+				value=(name,email,password)
+				db=pool.get_connection()
+				cursor=db.cursor(dictionary=True)
+				sql='INSERT INTO member (name, email, password) VALUES (%s, %s, %s)'
+				cursor.execute(sql,value)
+				db.commit()
+				cursor.close()
+				db.close()
+				return Response('{"ok":true}', status=200, mimetype='application/json')
+		else:
+			return Response('{"error":true, "message":"輸入的值不得為空，或者格式有誤"}', status=404, mimetype='application/json')
 	except:
 		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
 
@@ -102,25 +110,26 @@ def logIn():
 		# print(data)
 		email=data['email']
 		password=data['password']
-		value=(email,password)
-		db=pool.get_connection()
-		cursor=db.cursor(dictionary=True)
-		sql='SELECT id,name,email,password FROM member WHERE email=%s AND password=%s'
-		cursor.execute(sql,value)
-		output=cursor.fetchone()
-		# print(output)
-		cursor.close()
-		db.close()
-		if(output is None):
-			return Response('{"error":true, "message":"登入失敗，帳號或密碼錯誤或其他原因"}', status=400, mimetype='application/json')
+		result=re.match("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$",email)
+		if (result and password):
+			value=(email,password)
+			db=pool.get_connection()
+			cursor=db.cursor(dictionary=True)
+			sql='SELECT id,name,email,password FROM member WHERE email=%s AND password=%s'
+			cursor.execute(sql,value)
+			output=cursor.fetchone()
+			# print(output)
+			cursor.close()
+			db.close()
+			if(output is None):
+				return Response('{"error":true, "message":"登入失敗，帳號或密碼錯誤或其他原因"}', status=400, mimetype='application/json')
+			else:
+				session['login-id']=output['id']
+				session['login-name']=output['name']
+				session['login-email']=output['email']
+				return Response('{"ok":true}', status=200, mimetype='application/json')
 		else:
-			session['login-id']=output['id']
-			session['login-name']=output['name']
-			session['login-email']=output['email']
-			# print(session['login-id'])
-			# print(session['login-name'])
-			# print(session['login-email'])
-			return Response('{"ok":true}', status=200, mimetype='application/json')
+			return Response('{"error":true, "message":"輸入的值不得為空，或者格式有誤"}', status=404, mimetype='application/json')
 	except:
 		return Response('{"error":true, "message":"伺服器內部錯誤"}', status=500, mimetype='application/json')
 
@@ -302,7 +311,7 @@ def addBooking():
 		if('login-email' in session):
 			email=session['login-email']
 			data=request.get_json(silent=True)
-			print(data)
+			# print(data)
 			attractionId=int(data['attractionId'])
 			date=data['date']
 			time=data['time']

@@ -47,7 +47,7 @@ TPDirect.card.onUpdate((update)=>{
 })
 
 function bookingStatus(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -68,7 +68,7 @@ function bookingStatus(){
 }
 
 function bookingPlan(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -84,7 +84,7 @@ function bookingPlan(){
 
 let bookingInfo;
 function bookingGet(){
-    fetch("/api/booking", {method:'GET'})
+    fetch("/api/booking", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -121,7 +121,7 @@ function bookingGet(){
 }
 
 function bookingPost(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -143,8 +143,8 @@ function bookingPost(){
             };
             // console.log(b_info);
             let options={
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(b_info),
             };
             fetch("/api/booking", options)
@@ -152,8 +152,8 @@ function bookingPost(){
                 return response.json();
             }).then(function(result){
                 // console.log("打印 booking 資料", result);
-                if(b_date!=""){
-                window.location.href='/booking';
+                if(result.ok){
+                window.location.href="/booking";
                 }
                 else{
                     let calendar=document.querySelector('input[type="date"]');
@@ -165,11 +165,12 @@ function bookingPost(){
 }
 
 function bookingDelete(){
-    fetch("/api/booking", {method:'DELETE'})
+    fetch("/api/booking", {method:"DELETE"})
     .then(function(response){
         return response.json();
     }).then(function(result){
         // console.log("打印 booking 資料", result);
+        if(result.ok){
         let empty=document.getElementById("empty");
         empty.style.display="block";
         let content=document.getElementById("content");
@@ -179,6 +180,7 @@ function bookingDelete(){
         end.style.paddingTop="45px";
         end.style.alignItems="unset";
         window.location.reload();
+        }
     });
 }
 

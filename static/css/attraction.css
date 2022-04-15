@@ -209,8 +209,10 @@ input[type="date"]{
 }
 ::-webkit-calendar-picker-indicator{
     background-color: #ffffff;
-    background-image: url("calendar.png");
+    background-image: url("../icon/calendar.png");
+    background-position: center;
     background-size: 24px 24px;
+    cursor: pointer;
 }
 .d1{
     box-sizing: border-box;
@@ -265,6 +267,10 @@ input[type="radio"]:checked{
 .f2{
     font-weight: 400;
     margin: 0px 5px 0px 0px;
+}
+#money{
+    display: flex;
+    align-items: center;
 }
 button{
     border-style: none;
