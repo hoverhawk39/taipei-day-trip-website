@@ -12,8 +12,10 @@
     <section id="fixed">
         <nav>
             <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
-            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
-            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            <div class="menu">
+                <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+                <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            </div>
         </nav>
     </section>
     <div class="welcome">您好，<div id="user"></div>，待預訂的行程如下：</div>
@@ -53,7 +55,7 @@
     <div class="contact-info">
         <div class="contact-title">您的聯絡資訊</div>
         <div class="contact-point">聯絡姓名：<input type="text" id="c-name" placeholder="必填，不得為空"></div>
-        <div class="contact-point">聯絡信箱：<input type="text" id="c-email" placeholder="必填，不得為空"></div>
+        <div class="contact-point">聯絡信箱：<input type="text" id="c-email" placeholder="必填，需注意格式"></div>
         <div class="contact-point">手機號碼：<input type="text" id="c-phone" placeholder="必填，不得為空"></div>
         <div class="reminder">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
     </div>

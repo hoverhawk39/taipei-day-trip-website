@@ -121,7 +121,9 @@ function userLogOut(){
         return response.json();
     }).then(function(result){
         // console.log("打印 member 資料", result);
-        userStatus();
-        window.location.reload();
+        if(result.ok==true){
+            userStatus();
+            window.location.reload();
+        }
     });
 }

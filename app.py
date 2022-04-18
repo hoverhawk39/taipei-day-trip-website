@@ -39,6 +39,9 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
+@app.route("/member")
+def member():
+	return render_template("member.html")
 
 @app.route('/api/user', methods=['GET'])
 def getUser():
@@ -261,7 +264,6 @@ def api_attraction_id(path):
 
 @app.route('/api/booking', methods=['GET'])
 def getBooking():
-	# id,name,email="","",""
 	if('login-email' in session):
 		email=session['login-email']
 		value=(email,)
@@ -307,7 +309,6 @@ def getBooking():
 @app.route('/api/booking', methods=['POST'])
 def addBooking():
 	try:
-		# email=""
 		if('login-email' in session):
 			email=session['login-email']
 			data=request.get_json(silent=True)
@@ -372,12 +373,13 @@ def createOrder():
 			contactName=data['order']['contact']['name']
 			contactEmail=data['order']['contact']['email']
 			contactPhone=data['order']['contact']['phone']
-			if((not prime) or (not contactName) or (not contactEmail) or (not contactPhone)):
+			result=re.match("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$",contactEmail)
+			if((not prime) or (not contactName) or (not result) or (not contactPhone)):
 				return Response('{"error":true, "message":"訂單建立失敗，輸入不正確或其他原因"}', status=400, mimetype='application/json')
 			else:
 				currentTime=datetime.now()
 				newCurrentTime=currentTime.strftime("%Y%m%d%H%M%S%f")
-				orderId=newCurrentTime+str(random.randint(111,999))
+				orderId=newCurrentTime+str(random.randint(1000,9999))+prime[slice(5)]
 				value=(email,orderId,prime,attractionId,date,time,price,contactName,contactEmail,contactPhone)
 				db=pool.get_connection()
 				cursor=db.cursor(dictionary=True)
@@ -390,12 +392,14 @@ def createOrder():
 
 				headers={
 					"Content-Type": "application/json",
-					"x-api-key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM"
+					"x-api-key": os.getenv("TP_x-api-key")
 				}
 				payload={
 					"prime": prime,
-					"partner_key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM",
-					"merchant_id": "GlobalTesting_CTBC",
+					# "partner_key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM",
+					"partner_key": os.getenv("TP_partner_key"),
+					# "merchant_id": "GlobalTesting_CTBC",
+					"merchant_id": os.getenv("TP_merchant_id"),
 					"details": "台北一日遊的預訂行程付款",
 					"amount": price,
 					"cardholder": {
