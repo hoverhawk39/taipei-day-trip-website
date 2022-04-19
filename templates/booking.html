@@ -5,15 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>預訂行程</title>
-    <link href="../static/booking.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/booking.css" rel="stylesheet" type="text/css" media="all" />
     <script src="https://js.tappaysdk.com/tpdirect/v5.8.0"></script>
 </head>
 <body onload="bookingStatus();">
     <section id="fixed">
         <nav>
             <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
-            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
-            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            <div class="menu">
+                <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+                <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            </div>
         </nav>
     </section>
     <div class="welcome">您好，<div id="user"></div>，待預訂的行程如下：</div>
@@ -46,15 +48,15 @@
             </div>
         </div>
         <div class="main-icon" id="main-icon">
-            <img class="delete cursor" src="../static/delete.png" onclick="bookingDelete();"></img>
+            <img class="delete cursor" src="../static/icon/delete.png" onclick="bookingDelete();"></img>
         </div>
     </div>
     <hr id="h1">
     <div class="contact-info">
         <div class="contact-title">您的聯絡資訊</div>
-        <div class="contact-point">聯絡姓名：<input type="text" id="c-name"></div>
-        <div class="contact-point">聯絡信箱：<input type="text" id="c-email"></div>
-        <div class="contact-point">手機號碼：<input type="text" id="c-phone"></div>
+        <div class="contact-point">聯絡姓名：<input type="text" id="c-name" placeholder="必填，不得為空"></div>
+        <div class="contact-point">聯絡信箱：<input type="text" id="c-email" placeholder="必填，需注意格式"></div>
+        <div class="contact-point">手機號碼：<input type="text" id="c-phone" placeholder="必填，不得為空"></div>
         <div class="reminder">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
     </div>
     <hr id="h2">
@@ -77,8 +79,8 @@
     <div class="end" id="end">
         <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
     </div>
-    <script src="../static/booking.js"></script>
-    <script src="../static/memberForm.js"></script>
-    <script src="../static/memberCheck.js"></script>
+    <script src="../static/js/booking.js"></script>
+    <script src="../static/js/memberForm.js"></script>
+    <script src="../static/js/memberCheck.js"></script>
 </body>
 </html>

@@ -6,7 +6,8 @@ let contactName=document.getElementById('c-name');
 let contactEmail=document.getElementById('c-email');
 let contactPhone=document.getElementById('c-phone');
 
-TPDirect.setupSDK(11327,'app_whdEWBH8e8Lzy4N6BysVRRMILYORF6UxXbiOFsICkz0J9j1C0JUlCHv1tVJC','sandbox');
+// TPDirect.setupSDK(11327,'app_whdEWBH8e8Lzy4N6BysVRRMILYORF6UxXbiOFsICkz0J9j1C0JUlCHv1tVJC','sandbox');
+TPDirect.setupSDK(124023,'app_1pW5xgzme1t9WtmP9nzDdCG8PrrGKSf1MKQQerJHf5CQ7Fx1TcmTXGtwmiMx','sandbox');
 let fields={
     number:{
         element: cardNumber,
@@ -47,7 +48,7 @@ TPDirect.card.onUpdate((update)=>{
 })
 
 function bookingStatus(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -68,7 +69,7 @@ function bookingStatus(){
 }
 
 function bookingPlan(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -84,7 +85,7 @@ function bookingPlan(){
 
 let bookingInfo;
 function bookingGet(){
-    fetch("/api/booking", {method:'GET'})
+    fetch("/api/booking", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -121,7 +122,7 @@ function bookingGet(){
 }
 
 function bookingPost(){
-    fetch("/api/user", {method:'GET'})
+    fetch("/api/user", {method:"GET"})
     .then(function(response){
         return response.json();
     }).then(function(result){
@@ -143,8 +144,8 @@ function bookingPost(){
             };
             // console.log(b_info);
             let options={
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(b_info),
             };
             fetch("/api/booking", options)
@@ -152,8 +153,8 @@ function bookingPost(){
                 return response.json();
             }).then(function(result){
                 // console.log("打印 booking 資料", result);
-                if(b_date!=""){
-                window.location.href='/booking';
+                if(result.ok){
+                window.location.href="/booking";
                 }
                 else{
                     let calendar=document.querySelector('input[type="date"]');
@@ -165,11 +166,12 @@ function bookingPost(){
 }
 
 function bookingDelete(){
-    fetch("/api/booking", {method:'DELETE'})
+    fetch("/api/booking", {method:"DELETE"})
     .then(function(response){
         return response.json();
     }).then(function(result){
         // console.log("打印 booking 資料", result);
+        if(result.ok){
         let empty=document.getElementById("empty");
         empty.style.display="block";
         let content=document.getElementById("content");
@@ -179,48 +181,57 @@ function bookingDelete(){
         end.style.paddingTop="45px";
         end.style.alignItems="unset";
         window.location.reload();
+        }
     });
 }
 
 function confirmPayment(){
     const tappayStatus=TPDirect.card.getTappayFieldsStatus();
     if(tappayStatus.canGetPrime===true){
-        TPDirect.card.getPrime((result)=>{
-            let paymentInfo={
-                prime: result.card.prime,
-                order:{
-                    price: bookingInfo.price,
-                    trip:{
-                        attraction:{
-                            id: bookingInfo.attraction.id,
-                            name: bookingInfo.attraction.name,
-                            address: bookingInfo.attraction.address,
-                            image: bookingInfo.attraction.image
+        let ans=ValidateEmail(contactEmail.value);
+        if((contactName!="")&&(ans==true)&&(contactPhone!="")){
+            TPDirect.card.getPrime((result)=>{
+                let paymentInfo={
+                    prime: result.card.prime,
+                    order:{
+                        price: bookingInfo.price,
+                        trip:{
+                            attraction:{
+                                id: bookingInfo.attraction.id,
+                                name: bookingInfo.attraction.name,
+                                address: bookingInfo.attraction.address,
+                                image: bookingInfo.attraction.image
+                            },
+                            date: bookingInfo.date,
+                            time: bookingInfo.time,
                         },
-                        date: bookingInfo.date,
-                        time: bookingInfo.time,
-                    },
-                    contact:{
-                        name: contactName.value,
-                        email: contactEmail.value,
-                        phone: contactPhone.value,
+                        contact:{
+                            name: contactName.value,
+                            email: contactEmail.value,
+                            phone: contactPhone.value,
+                        }
                     }
-                }
-            };
-            console.log(paymentInfo);
-            let options={
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify(paymentInfo),
-            };
-            fetch("/api/order", options)
-            .then(response=>response.json())
-            .then(result=>{
-                if(result.data.payment.status==0){
-                    window.location.href='/thankyou?number='+result.data.number;
-                }
+                };
+                console.log(paymentInfo);
+                let options={
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(paymentInfo),
+                };
+                fetch("/api/order", options)
+                .then(response=>response.json())
+                .then(result=>{
+                    if(result.data.payment.status==0){
+                        window.location.href='/thankyou?number='+result.data.number;
+                    }
+                })
             })
-        })
+        }
+        else{
+            contactName.style.border="1px solid red";
+            contactEmail.style.border="1px solid red";
+            contactPhone.style.border="1px solid red";
+        }
     }
 }
 

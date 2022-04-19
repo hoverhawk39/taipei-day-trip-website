@@ -12,16 +12,7 @@ section{
     width: 1200px;
     margin: 0px auto;
 }
-@media screen and (max-width:1200px){
-    section{
-        width: auto;
-    }
-}
-@media screen and (max-width:600px){
-    section{
-        width: auto;
-    }
-}
+
 #fixed{
     position: sticky;
     position: -webkit-sticky;
@@ -38,6 +29,7 @@ nav{
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    justify-content: space-between;
 }
 nav>.site{
     color: #448899;
@@ -47,60 +39,41 @@ nav>.site{
     font-weight: bold;
     font-size: 30px;
     line-height: 34px;
-    flex: auto;
+    flex: none;
     justify-content: flex-start;
 }
-nav>.one{
+nav>.menu{
+    display: flex;
     color: #666666;
-    width: 84px;
-    height: 14px;
+    align-items: center;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
     line-height: 13px;
     text-align: center;
-    flex: none;
-    justify-content: flex-end;
-    margin: 10px 0px;
+    justify-content: space-between;
+    width: 150px;
+    margin-right: 15px;
 }
-nav>.two{
-    color: #666666;
-    width: 91px;
+.one{
     height: 14px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 13px;
-    text-align: center;
-    flex: none;
-    justify-content: flex-end;
-    margin: 10px 0px;
+}
+.two{
+    height: 14px;
 }
 
 .color{
     background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
 }
 .home{
-    background: url("welcome.png") no-repeat right bottom;
+    background: url("../icon/welcome.png") no-repeat right bottom;
     height: 320px;
     max-width: 1200px;
     margin: 0px auto 55px auto;
 }
-@media screen and (max-width:1200px){
-    .home{
-        background-size: 52%;
-        background-position: right bottom;
-    }
-}
-@media screen and (max-width:600px){
-    .home{
-        background-size: 50%;
-        background-position: right bottom;
-    }
-}
 
 #line1{
-    position: relative;left:10px;top:85px;
+    padding: 85px 0px 0px 10px;
     display: flex;
     align-items: center;
     font-size: 28px;
@@ -112,18 +85,9 @@ nav>.two{
     max-width: 1180px;
     color: #f8f8f8;
 }
-@media screen and (max-width:1200px){
-    #line1{
-        max-width: 600px;
-    }
-}
-@media screen and (max-width:600px){
-    #line1{
-        max-width: 300px;
-    }
-}
+
 #line2{
-    position: relative;left:10px;top:100px;
+    padding: 15px 0px 0px 10px;
     display: flex;
     align-items: center;
     font-size: 16px;
@@ -133,23 +97,17 @@ nav>.two{
     height: 22px;
     max-width: 1180px;
     color: #f8f8f8;
+    margin: 0px 0px 25px 0px;
 }
-@media screen and (max-width:1200px){
-    #line2{
-        max-width: 600px;
-    }
-}
-@media screen and (max-width:600px){
-    #line2{
-        max-width: 300px;
-    }
+
+.line3{
+    display: flex;
 }
 
 #sbox{
     background-color: #ffffff;
-    position:relative;left:10px;top:125px;
-    display: inline-flex;
-    align-items: center;
+    margin-left: 10px;
+    display: block;
     font-size: 16px;
     font-style: normal;
     font-weight: bold;
@@ -162,33 +120,18 @@ nav>.two{
     border-radius: 5px 0px 0px 5px;
     color: #757575;
 }
-@media screen and (max-width:1200px){
-    #sbox{
-        max-width: 50%;
-    }
-}
-@media screen and (max-width:600px){
-    #sbox{
-        max-width: 230px;
-    }
-}
+
 #btn{
-    background: url("search.png") no-repeat center #448899;
-    position: relative;left:0px;top:125px;
-    display: inline-flex;
-    align-items: center;
+    background: url("../icon/search.png") no-repeat center #448899;
+    display: block;
     height: 50px;
     width: 60px;
     padding: 0px 15px;
     border-color: transparent;
     border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
 }
-@media screen and (max-width:368px){
-    #word{
-        line-height: 150px;
-        word-break: break-word;
-    }
-}
+
 span{
     height: 12px;
 }
@@ -201,18 +144,7 @@ main{
     grid-gap: 30px;
     padding: 0px 10px;
 }
-@media screen and (max-width:1200px){
-    main{
-        grid-template-columns: 47% 47%;
-        padding: 0px 10px;
-        justify-content: center;
-    }
-}
-@media screen and (max-width:600px){
-    main{
-        grid-template-columns: 95%;
-    }
-}
+
 main>.box{
     grid-auto-flow: column;
     border: 1px solid #E8E8E8;
@@ -224,15 +156,9 @@ main>.box{
     box-sizing: border-box;
     border-radius: 5px;
 }
-@media screen and (max-width:1200px){
-    main>.box{
-        width:100%;
-    }
-}
-@media screen and (max-width:600px){
-    main>.box{
-        width:100%;
-    }
+main>.box:hover{
+    box-shadow: 5px 5px 10px #888888;
+    background-color: #FAFFAF;
 }
 
 .s-title{
@@ -240,40 +166,20 @@ main>.box{
     text-align: left;
     color: #757575;
     font-size: 16px;
-    line-height: 15px;
+    line-height: 16px;
     font-style: normal;
     font-weight: bold;
     width: 270px;
-    height: 40px;
+    height: 42px;
     box-sizing: border-box;
     padding: 11px 10px 7px 10px;
 }
-@media screen and (max-width:1200px){
-    .s-title{
-        width: auto;
-    }
-}
-@media screen and (max-width:600px){
-    .s-title{
-        width: auto;
-    }
-}
+
 #info{
     display: flex;
     justify-content: space-between;
 }
-@media screen and (max-width:1200px){
-    #info{
-        display: flex;
-        justify-content: space-between;
-    }
-}
-@media screen and (max-width:600px){
-    #info{
-        display: flex;
-        justify-content: space-between;
-    }
-}
+
 .s-info1{
     flex: none;
     justify-content: flex-start;
@@ -333,4 +239,24 @@ img{
     font-style: normal;
     font-weight: bold;
     line-height: 13px;
+}
+
+@media screen and (max-width:1200px){
+    section{width: auto;}
+    .home{background-size: 52%; background-position: right bottom;}
+    #line1{max-width: 600px;}
+    #line2{max-width: 600px;}
+    #sbox{max-width: 50%;}
+    main{grid-template-columns: 47% 47%; padding: 0px 10px; justify-content: center;}
+    main>.box{width:100%;}
+    .s-title{width: auto;}
+    #info{display: flex; justify-content: space-between;}
+}
+
+@media screen and (max-width:600px){
+    .home{background-size: 50%; background-position: right bottom;}
+    #line1{max-width: 300px;}
+    #line2{max-width: 300px;}
+    #sbox{max-width: 230px;}
+    main{grid-template-columns: 95%;}
 }

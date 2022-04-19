@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>景點資訊</title>
-    <link href="../static/attraction.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../static/memberForm.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/attraction.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/memberForm.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body onload="userStatus();">
     <section id="fixed">
         <nav>
             <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
-            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
-            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            <div class="menu">
+                <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+                <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            </div>
         </nav>
     </section>
     <div class="main" id="main">
         <div class="main-img" id="main-img">
-            <img class="arrow-left cursor" id="left" src="../static/btn_leftArrow.png" onclick="showPhotos(-1);"></img>
-            <img class="arrow-right cursor" id="right" src="../static/btn_rightArrow.png" onclick="showPhotos(1);"></img>
+            <img class="arrow-left cursor" id="left" src="../static/icon/btn_leftArrow.png" onclick="showPhotos(-1);"></img>
+            <img class="arrow-right cursor" id="right" src="../static/icon/btn_rightArrow.png" onclick="showPhotos(1);"></img>
             <div class="dots" id="dots"></div>
         </div>
         <div class="main-right" id="main-right">
@@ -36,9 +38,9 @@
                 </div>
                 <div class="time">
                     <div class="t1">選擇時間：</div>
-                    <input type="radio" name="time" value="morning" onclick="lowerPrice();" checked>
+                    <input class="cursor" type="radio" name="time" value="morning" onclick="lowerPrice();" checked>
                     <div class="t2">上半天</div>
-                    <input type="radio" name="time" value="afternoon" onclick="higherPrice();">
+                    <input class="cursor" type="radio" name="time" value="afternoon" onclick="higherPrice();">
                     <div class="t2">下半天</div>
                 </div>
                 <div class="fee">
@@ -62,9 +64,9 @@
     <div class="end">
         <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
     </div>
-    <script src="../static/attraction.js"></script>
-    <script src="../static/memberForm.js"></script>
-    <script src="../static/memberCheck.js"></script>
-    <script src="../static/booking.js"></script>
+    <script src="../static/js/attraction.js"></script>
+    <script src="../static/js/memberForm.js"></script>
+    <script src="../static/js/memberCheck.js"></script>
+    <script src="../static/js/booking.js"></script>
 </body>
 </html>

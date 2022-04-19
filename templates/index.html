@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Taipei Trip 台北一日遊</title>
-    <link href="../static/index.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../static/memberForm.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/index.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../static/css/memberForm.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body onload="userStatus();">
     <section id="fixed">
         <nav>
             <div class="site cursor" onclick="toHomePage();">台北一日遊</div>
-            <div class="one cursor" onclick="bookingPlan();">預定行程</div>
-            <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            <div class="menu">
+                <div class="one cursor" onclick="bookingPlan();">預定行程</div>
+                <div class="two cursor" id="m-status" onclick="memberClick();">登入/註冊</div>
+            </div>
         </nav>
     </section>
     <div class="color">
         <div class="home">
             <div id="line1">輕鬆享受台北一日悠閒</div>
             <div id="line2">探索每個角落，體驗城市的深度旅遊行程</div>
-            <input type="text" id="sbox" name="search" value="輸入景點名稱查詢"></input>
-            <button id="btn" onclick="search();"><span></span></button>
+            <div class="line3">
+                <input type="text" id="sbox" name="search" placeholder="輸入景點名稱查詢">
+                <button id="btn" onclick="search();"></button>
+            </div>
         </div>
     </div>
     <section>
@@ -29,8 +33,8 @@
     <div class="end" id="target">
         <div id="copyright">COPYRIGHT © 2021 台北一日遊</div>
     </div>
-    <script src="../static/index.js"></script>
-    <script src="../static/memberForm.js"></script>
-    <script src="../static/memberCheck.js"></script>
+    <script src="../static/js/index.js"></script>
+    <script src="../static/js/memberForm.js"></script>
+    <script src="../static/js/memberCheck.js"></script>
 </body>
 </html>
